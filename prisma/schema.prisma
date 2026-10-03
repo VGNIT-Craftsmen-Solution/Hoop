@@ -1,0 +1,44 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  role      String   @default("BOOKER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Companion {
+  id        String   @id @default(cuid())
+  name      String
+  age       Int
+  rating    Float
+  rate      String
+  sk        String
+  hr        String
+  bg        String
+  sh        String
+  long      Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  companionId String
+  userId      String?
+  date        String
+  time        String
+  status      String   @default("PENDING") // PENDING, ACCEPTED, DECLINED
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
